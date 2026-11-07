@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e9a0a5">
+  <meta name="description" content="AMBALAN DIGITAL - Sistem Informasi dan Manajemen Dewan Ambalan Pramuka SMAN 2 Cibinong.">
+  <title>AMBALAN DIGITAL | Dewan Ambalan</title>
+  <style>
+    :root {
+      --pink: #e9a0a5;
+      --rose: #d98b92;
+      --blush: #f7e5e6;
+      --grey: #f1f2f4;
+      --dark: #414247;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #faf9f9;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .navbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 16px 7%;
+      box-shadow: 0 2px 15px #0000000c;
+    }
+    .brand { font-weight: 800; letter-spacing: 1px; }
+    .brand span { color: var(--rose); }
+    .navlinks { display: flex; gap: 22px; font-size: 14px; }
+    .navlinks a:hover { color: var(--rose); }
+    .hero {
+      min-height: 590px; padding: 90px 8%;
+      display: flex; align-items: center;
+      background: linear-gradient(125deg, #f7e5e6, #fff 65%, #f1f2f4);
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ""; position: absolute;
+      width: 350px; height: 350px; border-radius: 50%;
+      background: #e9a0a544; right: -90px; bottom: -130px;
+    }
+    .hero-content { max-width: 720px; position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-block; background: white;
+      padding: 8px 16px; border-radius: 30px;
+      color: #ad626a; font-size: 13px; margin-bottom: 20px;
+    }
+    h1 { font-size: clamp(42px, 7vw, 76px); line-height: 1.08; }
+    h1 span { color: var(--rose); }
+    .hero p { margin: 22px 0; max-width: 560px; color: #666; }
+    .btn {
+      display: inline-block; background: var(--rose);
+      color: white; padding: 13px 24px;
+      border-radius: 12px; font-weight: bold;
+      transition: .25s;
+    }
+    .btn:hover { transform: translateY(-3px); background: #c97982; }
+    section { padding: 75px 8%; }
+    .section-title { text-align: center; margin-bottom: 38px; }
+    .section-title h2 { font-size: 32px; }
+    .section-title p { color: #888; margin-top: 8px; }
+    .identity {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+    }
+    .card {
+      background: white; padding: 26px;
+      border-radius: 18px; box-shadow: 0 8px 25px #00000009;
+      border: 1px solid #eee;
+      transition: .25s;
+    }
+    .card:hover { transform: translateY(-5px); }
+    .card .icon { font-size: 30px; margin-bottom: 12px; }
+    .card h3 { margin-bottom: 8px; }
+    .card p { color: #777; font-size: 14px; }
+    .about {
+      background: var(--grey);
+      border-radius: 30px; margin: 0 5%;
+    }
+    .about-inner { max-width: 850px; margin: auto; text-align: center; }
+    .about-inner p { margin-top: 15px; color: #666; }
+    .modules {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+    }
+    .module-number {
+      color: var(--rose); font-size: 13px;
+      font-weight: bold; margin-bottom: 8px;
+    }
+    .notice {
+      background: var(--blush); border-radius: 20px;
+      padding: 30px; text-align: center;
+    }
+    footer {
+      background: var(--dark); color: white;
+      text-align: center; padding: 30px 8%;
+      font-size: 13px;
+    }
+    footer p { opacity: .75; margin-top: 5px; }
+    .fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .7s, transform .7s;
+    }
+    .fade.show { opacity: 1; transform: translateY(0); }
+
+    @media(max-width: 700px) {
+      .navbar { padding: 14px 5%; }
+      .navlinks { gap: 12px; font-size: 12px; }
+      .hero { min-height: 520px; padding: 75px 7%; }
+      .identity, .modules { grid-template-columns: 1fr; }
+      section { padding: 60px 7%; }
+      .about { margin: 0 3%; }
+    }
+    @media(max-width: 420px) {
+      .navlinks { gap: 8px; font-size: 11px; }
+      .brand { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a class="brand" href="#">AMBALAN<span>.</span>DIGITAL</a>
+    <div class="navlinks">
+      <a href="#beranda">Beranda</a>
+      <a href="#profil">Profil</a>
+      <a href="#fitur">Fitur</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="beranda">
+    <div class="hero-content fade">
+      <div class="eyebrow">⚜️ PRAMUKA • SMAN 2 CIBINONG</div>
+      <h1>Satu Ambalan,<br><span>Satu Sistem.</span></h1>
+      <p>
+        Bergerak dalam pengabdian. Selamat datang di AMBALAN DIGITAL,
+        pusat informasi dan pengelolaan Dewan Ambalan Pramuka
+        SMAN 2 Cibinong.
+      </p>
+      <a class="btn" href="#profil">Jelajahi Website ↗</a>
+    </div>
+  </header>
+
+  <section id="profil">
+    <div class="section-title fade">
+      <h2>Identitas Ambalan</h2>
+      <p>Mengenal identitas dan organisasi kami.</p>
+    </div>
+    <div class="identity">
+      <article class="card fade">
+        <div class="icon">🏫</div>
+        <h3>SMAN 2 Cibinong</h3>
+        <p>Lingkungan pendidikan tempat Ambalan menjalankan kegiatan kepramukaan.</p>
+      </article>
+      <article class="card fade">
+        <div class="icon">⚜️</div>
+        <h3>Ambalan Putri</h3>
+        <p>Moh. Hatta – H. R. Rasuna</p>
+      </article>
+      <article class="card fade">
+        <div class="icon">📜</div>
+        <h3>Gugus Depan</h3>
+        <p>19.265 – 19.266</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="about" id="tentang">
+    <div class="about-inner fade">
+      <h2>Tentang AMBALAN DIGITAL</h2>
+      <p>
+        AMBALAN DIGITAL merupakan platform informasi dan manajemen
+        Dewan Ambalan yang dirancang untuk mendukung administrasi,
+        pembelajaran, komunikasi, serta pengelolaan kegiatan Pramuka
+        secara lebih terstruktur dan terintegrasi.
+      </p>
+    </div>
+  </section>
+
+  <section id="fitur">
+    <div class="section-title fade">
+      <h2>Ruang Digital Ambalan</h2>
+      <p>Berbagai bidang yang direncanakan dalam satu platform.</p>
+    </div>
+    <div class="modules">
+      <article class="card fade">
+        <div class="module-number">01 / PEMBELAJARAN</div>
+        <h3>📚 E-Learning</h3>
+        <p>Materi kepramukaan, modul pembelajaran, dan referensi anggota.</p>
+      </article>
+      <article class="card fade">
+        <div class="module-number">02 / EVALUASI</div>
+        <h3>📝 Kuis & Evaluasi</h3>
+        <p>Latihan soal dan evaluasi pengetahuan kepramukaan.</p>
+      </article>
+      <article class="card fade">
+        <div class="module-number">03 / KEANGGOTAAN</div>
+        <h3>👥 Data Anggota</h3>
+        <p>Informasi dan pengelolaan keanggotaan Ambalan.</p>
+      </article>
+      <article class="card fade">
+        <div class="module-number">04 / KEHADIRAN</div>
+        <h3>📋 Presensi</h3>
+        <p>Pencatatan kehadiran dalam kegiatan Ambalan.</p>
+      </article>
+      <article class="card fade">
+        <div class="module-number">05 / KEUANGAN</div>
+        <h3>💰 Administrasi Keuangan</h3>
+        <p>Rencana pencatatan pemasukan, pengeluaran, dan laporan.</p>
+      </article>
+      <article class="card fade">
+        <div class="module-number">06 / INFORMASI</div>
+        <h3>📢 Pusat Informasi</h3>
+        <p>Pengumuman, agenda kegiatan, dan informasi organisasi.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="notice fade">
+      <h2>Bergerak Bersama, Bertumbuh Bersama.</h2>
+      <p>Satukan langkah dalam semangat pengabdian.</p>
+    </div>
+  </section>
+
+  <footer>
+    <strong>AMBALAN DIGITAL</strong>
+    <p>Sistem Informasi dan Manajemen Dewan Ambalan Pramuka</p>
+    <p>SMAN 2 Cibinong • Gugus Depan 19.265–19.266</p>
+    <p>© 2026 AMBALAN DIGITAL</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".fade").forEach(element => {
+      observer.observe(element);
+    });
+  </script>
+</body>
+</html>
