@@ -464,31 +464,54 @@ async function loginOwner() {
   message.textContent = 'Memeriksa akun...';
 
   try {
-    const {data, error} = await db.auth.signInWithPassword({
-      email, password
+    const { data, error } = await db.auth.signInWithPassword({
+      email,
+      password
     });
 
     if (error) throw error;
 
-    const {data: profile, error: profileError} = await db
+    const { data: profile, error: profileError } = await db
       .from('profiles')
-      .select('role, full_name')
+      .select('role, full_name, is_approved')
       .eq('id', data.user.id)
       .single();
 
-    if (profileError) throw profileError;
-
-    if (profile.role !== 'owner') {
+    if (profileError) {
       await db.auth.signOut();
-      throw new Error('Akun ini bukan Owner.');
+      throw profileError;
     }
 
     document.getElementById('ownerLogin').style.display = 'none';
-    document.getElementById('ownerDashboard').style.display = 'block';
-    document.getElementById('ownerWelcome').textContent =
-      'Selamat datang, ' + (profile.full_name || 'Owner') + '!';
-    await loadAttendanceMembers();
-    await loadPendingMembers();
+
+    if (profile.role === 'owner') {
+      document.getElementById('ownerDashboard').style.display = 'block';
+      document.getElementById('ownerWelcome').textContent =
+        'Selamat datang, ' + (profile.full_name || 'Owner') + '!';
+
+      await loadAttendanceMembers();
+      await loadPendingMembers();
+      return;
+    }
+
+    if (profile.role === 'anggota') {
+      if (!profile.is_approved) {
+        await db.auth.signOut();
+        document.getElementById('ownerLogin').style.display = 'flex';
+        throw new Error('Akun belum disetujui Owner.');
+      }
+
+      document.getElementById('memberDashboard').style.display = 'block';
+      document.getElementById('memberWelcome').textContent =
+        'Selamat datang, ' + (profile.full_name || 'Anggota') + '!';
+
+      return;
+    }
+
+    await db.auth.signOut();
+    document.getElementById('ownerLogin').style.display = 'flex';
+    throw new Error('Role akun tidak dikenali.');
+
   } catch (error) {
     message.textContent = 'Gagal login: ' + error.message;
   }
