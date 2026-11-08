@@ -634,11 +634,50 @@ async function logoutOwner() {
 
     await loadMembers();
 
-  } catch (error) {
+    } catch (error) {
     message.textContent = 'Gagal menyimpan data: ' + error.message;
   }
 }
-  async function editMember(id) {
+
+async function saveMaterial() {
+  const title = document.getElementById('materialTitle').value.trim();
+  const description = document.getElementById('materialDescription').value.trim();
+  const category = document.getElementById('materialCategory').value.trim();
+  const message = document.getElementById('materialMessage');
+
+  if (!title || !description) {
+    message.textContent = 'Judul dan isi materi wajib diisi.';
+    return;
+  }
+
+  message.textContent = 'Menyimpan materi...';
+
+  try {
+    const { data: { user }, error: userError } = await db.auth.getUser();
+
+    if (userError) throw userError;
+    if (!user) throw new Error('Sesi login tidak ditemukan.');
+
+    const { error } = await db.from('learning_materials').insert([{
+      title: title,
+      description: description,
+      category: category || null,
+      uploaded_by: user.id
+    }]);
+
+    if (error) throw error;
+
+    message.textContent = 'Materi berhasil dipublikasikan.';
+
+    ['materialTitle', 'materialDescription', 'materialCategory']
+      .forEach(id => document.getElementById(id).value = '');
+
+  } catch (error) {
+    message.textContent = 'Gagal menyimpan materi: ' + error.message;
+  }
+}
+
+async function editMember(id) {
   try {
     const { data: member, error } = await db
       .from('members')
