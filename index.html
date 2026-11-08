@@ -445,6 +445,42 @@ async function logoutOwner() {
     message.textContent = 'Gagal memuat data: ' + error.message;
   }
 }
+  async function addMember() {
+  const message = document.getElementById('memberMessage');
+
+  const number = document.getElementById('memberNumber').value.trim();
+  const name = document.getElementById('memberName').value.trim();
+  const kelas = document.getElementById('memberClass').value.trim();
+  const jabatan = document.getElementById('memberPosition').value.trim();
+
+  if (!name) {
+    message.textContent = 'Nama anggota wajib diisi.';
+    return;
+  }
+
+  message.textContent = 'Menyimpan anggota...';
+
+  try {
+    const { error } = await db.from('members').insert([{
+      nomor_anggota: number || null,
+      nama_lengkap: name,
+      kelas: kelas || null,
+      jabatan: jabatan || null
+    }]);
+
+    if (error) throw error;
+
+    message.textContent = 'Anggota berhasil ditambahkan.';
+
+    ['memberNumber', 'memberName', 'memberClass', 'memberPosition']
+      .forEach(id => document.getElementById(id).value = '');
+
+    await loadMembers();
+
+  } catch (error) {
+    message.textContent = 'Gagal menyimpan data: ' + error.message;
+  }
+}
 </script>
 
 </body>
