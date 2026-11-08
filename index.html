@@ -495,6 +495,71 @@ async function logoutOwner() {
     message.textContent = 'Gagal menyimpan data: ' + error.message;
   }
 }
+  async function editMember(id) {
+  try {
+    const { data: member, error } = await db
+      .from('members')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+
+    const nama = prompt('Nama lengkap:', member.nama_lengkap || '');
+    if (nama === null) return;
+
+    if (!nama.trim()) {
+      alert('Nama anggota wajib diisi.');
+      return;
+    }
+
+    const nomor = prompt('Nomor anggota:', member.nomor_anggota || '');
+    if (nomor === null) return;
+
+    const kelas = prompt('Kelas:', member.kelas || '');
+    if (kelas === null) return;
+
+    const jabatan = prompt('Jabatan:', member.jabatan || '');
+    if (jabatan === null) return;
+
+    const { error: updateError } = await db
+      .from('members')
+      .update({
+        nama_lengkap: nama.trim(),
+        nomor_anggota: nomor.trim() || null,
+        kelas: kelas.trim() || null,
+        jabatan: jabatan.trim() || null
+      })
+      .eq('id', id);
+
+    if (updateError) throw updateError;
+
+    alert('Data anggota berhasil diperbarui.');
+    await loadMembers();
+
+  } catch (error) {
+    alert('Gagal mengedit data: ' + error.message);
+  }
+}
+
+async function deleteMember(id) {
+  if (!confirm('Yakin ingin menghapus data anggota ini?')) return;
+
+  try {
+    const { error } = await db
+      .from('members')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+
+    alert('Data anggota berhasil dihapus.');
+    await loadMembers();
+
+  } catch (error) {
+    alert('Gagal menghapus data: ' + error.message);
+  }
+}
 </script>
 
 </body>
