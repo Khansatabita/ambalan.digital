@@ -712,6 +712,58 @@ async function saveAttendance() {
     maximumAge: 0
   });
 }
+  function openMemberRegister() {
+  document.getElementById('ownerLogin').style.display = 'none';
+  document.getElementById('memberRegister').style.display = 'flex';
+}
+
+async function registerMember() {
+  const name = document.getElementById('registerName').value.trim();
+  const number = document.getElementById('registerNumber').value.trim();
+  const email = document.getElementById('registerEmail').value.trim();
+  const password = document.getElementById('registerPassword').value;
+  const message = document.getElementById('registerMessage');
+
+  if (!name || !number || !email || !password) {
+    message.textContent = 'Semua kolom wajib diisi.';
+    return;
+  }
+
+  if (password.length < 8) {
+    message.textContent = 'Password minimal 8 karakter.';
+    return;
+  }
+
+  message.textContent = 'Memproses pendaftaran...';
+
+  try {
+    const { data, error } = await db.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: name,
+          nomor_anggota: number
+        }
+      }
+    });
+
+    if (error) throw error;
+
+    if (data.session) {
+      await db.auth.signOut();
+    }
+
+    message.textContent =
+      'Pendaftaran berhasil dikirim. Silakan tunggu verifikasi Owner.';
+
+    ['registerName', 'registerNumber', 'registerEmail', 'registerPassword']
+      .forEach(id => document.getElementById(id).value = '');
+
+  } catch (error) {
+    message.textContent = 'Pendaftaran gagal: ' + error.message;
+  }
+}
 </script>
 
 </body>
