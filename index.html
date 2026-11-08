@@ -521,6 +521,10 @@ async function logoutOwner() {
   await db.auth.signOut();
   document.getElementById('ownerDashboard').style.display = 'none';
 }
+  async function logoutMember() {
+  await db.auth.signOut();
+  document.getElementById('memberDashboard').style.display = 'none';
+}
   async function loadMembers() {
   const message = document.getElementById('memberMessage');
   const list = document.getElementById('memberList');
