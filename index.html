@@ -459,30 +459,6 @@ async function logoutOwner() {
   }
   }
 
-    message.textContent = 'Total anggota: ' + data.length;
-
-    data.forEach(member => {
-      const card = document.createElement('div');
-      card.style.cssText =
-        'background:#F7E5E6;padding:15px;border-radius:10px;margin-bottom:10px';
-
-      const name = document.createElement('strong');
-      name.textContent = member.nama_lengkap || 'Tanpa nama';
-
-      const detail = document.createElement('p');
-      detail.textContent =
-        'Nomor: ' + (member.nomor_anggota || '-') +
-        ' | Kelas: ' + (member.kelas || '-') +
-        ' | Jabatan: ' + (member.jabatan || '-');
-
-      card.append(name, detail);
-      list.appendChild(card);
-    });
-
-  } catch (error) {
-    message.textContent = 'Gagal memuat data: ' + error.message;
-  }
-}
   async function addMember() {
   const message = document.getElementById('memberMessage');
 
