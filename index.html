@@ -417,7 +417,43 @@ style="width:100%;padding:12px;margin-top:10px;background:#F7E5E6;color:#9D5961;
     </button>
   </div>
 </div>
+<!-- DASHBOARD ANGGOTA -->
+<div id="memberDashboard" style="display:none;position:fixed;inset:0;background:#F1F2F4;z-index:102;padding:30px 20px;overflow:auto">
 
+  <div style="max-width:700px;margin:auto">
+    <h1>Dashboard Anggota</h1>
+    <p id="memberWelcome" style="margin:10px 0 25px">
+      Selamat datang!
+    </p>
+
+    <div style="background:white;padding:22px;border-radius:15px;margin-bottom:15px">
+      <h3>Materi Kepramukaan</h3>
+      <p>Baca dan pelajari materi yang telah disediakan Owner.</p>
+      <div id="memberMaterials">
+        Materi akan ditampilkan di sini.
+      </div>
+    </div>
+
+    <div style="background:white;padding:22px;border-radius:15px;margin-bottom:15px">
+      <h3>Latihan Soal</h3>
+      <p>Kerjakan latihan soal untuk menguji pemahamanmu.</p>
+      <div id="memberQuizzes">
+        Latihan soal akan ditampilkan di sini.
+      </div>
+    </div>
+
+    <div style="background:white;padding:22px;border-radius:15px;margin-bottom:15px">
+      <h3>Riwayat Nilai</h3>
+      <div id="memberScores">
+        Nilai latihan akan ditampilkan di sini.
+      </div>
+    </div>
+
+    <button onclick="logoutMember()" style="padding:12px 20px;background:#D98B92;color:white;border:0;border-radius:9px">
+      Keluar
+    </button>
+  </div>
+</div>
 
 <script>
 async function loginOwner() {
