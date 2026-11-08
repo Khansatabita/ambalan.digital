@@ -320,7 +320,24 @@ style="width:100%;padding:12px;margin-top:10px;background:#F7E5E6;color:#9D5961;
     style="margin-top:12px;border:0;background:none;color:#777">Tutup</button>
   </div>
 </div>
+<!-- FORM PENDAFTARAN ANGGOTA -->
+<div id="memberRegister" style="display:none;position:fixed;inset:0;background:#0009;z-index:110;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;padding:25px;border-radius:18px;width:100%;max-width:380px">
+    <h2>Daftar Akun Anggota</h2>
+    <p style="color:#777;margin:8px 0 18px">Isi identitas sesuai data Ambalan.</p>
 
+    <input id="registerName" placeholder="Nama Lengkap" style="width:100%;padding:12px;margin-bottom:10px">
+    <input id="registerNumber" placeholder="Nomor Anggota" style="width:100%;padding:12px;margin-bottom:10px">
+    <input id="registerEmail" type="email" placeholder="Email" style="width:100%;padding:12px;margin-bottom:10px">
+    <input id="registerPassword" type="password" placeholder="Password (minimal 8 karakter)" style="width:100%;padding:12px;margin-bottom:10px">
+
+    <button onclick="registerMember()" style="width:100%;padding:12px;background:#D98B92;color:white;border:0;border-radius:9px;font-weight:bold">Daftar Sekarang</button>
+
+    <p id="registerMessage" style="margin-top:12px;font-size:13px"></p>
+
+    <button onclick="document.getElementById('memberRegister').style.display='none';document.getElementById('ownerLogin').style.display='flex'" style="width:100%;padding:10px;margin-top:8px">Kembali</button>
+  </div>
+</div>
 
 <div id="ownerDashboard" style="display:none;position:fixed;inset:0;background:#F1F2F4;z-index:101;padding:30px 20px;overflow:auto">
 
