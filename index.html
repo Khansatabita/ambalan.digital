@@ -737,6 +737,26 @@ async function saveAttendance() {
     maximumAge: 0
   });
 }
+  async function approveMemberAccount(userId) {
+  if (!confirm('Setujui akun anggota ini?')) return;
+
+  const list = document.getElementById('pendingMembersList');
+  list.textContent = 'Memproses persetujuan...';
+
+  try {
+    const { data, error } = await db.rpc('approve_member_account', {
+      p_user_id: userId
+    });
+
+    if (error) throw error;
+
+    alert(data || 'Akun anggota berhasil disetujui.');
+    await loadPendingMembers();
+
+  } catch (error) {
+    list.textContent = 'Gagal menyetujui akun: ' + error.message;
+  }
+}
   async function loadPendingMembers() {
   const list = document.getElementById('pendingMembersList');
 
