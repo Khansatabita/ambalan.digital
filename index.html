@@ -293,5 +293,87 @@ const db = window.supabase.createClient(
   SUPABASE_PUBLISHABLE_KEY
 );
 </script>
+  
+<!-- LOGIN OWNER -->
+<button onclick="document.getElementById('ownerLogin').style.display='flex'"
+style="position:fixed;bottom:20px;right:20px;background:#D98B92;color:white;border:0;padding:14px 20px;border-radius:12px;font-weight:bold;z-index:99">
+Login Owner
+</button>
+
+<div id="ownerLogin" style="display:none;position:fixed;inset:0;background:#0009;z-index:100;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;padding:28px;border-radius:18px;width:100%;max-width:380px">
+    <h2 style="margin-bottom:8px">Login Owner</h2>
+    <p style="color:#777;margin-bottom:20px">Masuk ke Ambalan Digital</p>
+    <input id="ownerEmail" type="email" placeholder="Email Owner"
+    style="width:100%;padding:13px;margin-bottom:12px;border:1px solid #ddd;border-radius:9px">
+    <input id="ownerPassword" type="password" placeholder="Password"
+    style="width:100%;padding:13px;margin-bottom:15px;border:1px solid #ddd;border-radius:9px">
+    <button onclick="loginOwner()" style="width:100%;padding:13px;background:#D98B92;color:white;border:0;border-radius:9px;font-weight:bold">
+      Masuk
+    </button>
+    <p id="loginMessage" style="margin-top:12px;font-size:13px"></p>
+    <button onclick="document.getElementById('ownerLogin').style.display='none'"
+    style="margin-top:12px;border:0;background:none;color:#777">Tutup</button>
+  </div>
+</div>
+
+<div id="ownerDashboard" style="display:none;position:fixed;inset:0;background:#F1F2F4;z-index:101;padding:30px 20px;overflow:auto">
+  <div style="max-width:700px;margin:auto">
+    <h1>Dashboard Owner</h1>
+    <p id="ownerWelcome" style="margin:10px 0 25px"></p>
+    <div style="background:white;padding:22px;border-radius:15px">
+      <h3>Ambalan Digital</h3>
+      <p>Login Owner berhasil. Akun kamu telah terverifikasi.</p>
+      <p style="margin-top:10px">Pengelolaan modul lainnya sedang dikembangkan.</p>
+    </div>
+    <button onclick="logoutOwner()" style="margin-top:20px;padding:12px 20px;background:#D98B92;color:white;border:0;border-radius:9px">
+      Keluar
+    </button>
+  </div>
+</div>
+
+<script>
+async function loginOwner() {
+  const email = document.getElementById('ownerEmail').value.trim();
+  const password = document.getElementById('ownerPassword').value;
+  const message = document.getElementById('loginMessage');
+
+  message.textContent = 'Memeriksa akun...';
+
+  try {
+    const {data, error} = await db.auth.signInWithPassword({
+      email, password
+    });
+
+    if (error) throw error;
+
+    const {data: profile, error: profileError} = await db
+      .from('profiles')
+      .select('role, full_name')
+      .eq('id', data.user.id)
+      .single();
+
+    if (profileError) throw profileError;
+
+    if (profile.role !== 'owner') {
+      await db.auth.signOut();
+      throw new Error('Akun ini bukan Owner.');
+    }
+
+    document.getElementById('ownerLogin').style.display = 'none';
+    document.getElementById('ownerDashboard').style.display = 'block';
+    document.getElementById('ownerWelcome').textContent =
+      'Selamat datang, ' + (profile.full_name || 'Owner') + '!';
+  } catch (error) {
+    message.textContent = 'Gagal login: ' + error.message;
+  }
+}
+
+async function logoutOwner() {
+  await db.auth.signOut();
+  document.getElementById('ownerDashboard').style.display = 'none';
+}
+</script>
+
 </body>
 </html>
