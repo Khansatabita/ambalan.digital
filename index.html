@@ -1,139 +1,198 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMBALAN DIGITAL</title>
+<title>Ambalan Digital | SMAN 2 Cibinong</title>
 <style>
 :root {
-  --red:#e9a0a5;
-  --dark-red:#d98b92;
-  --pink:#f7e5e6;
-  --grey:#f1f2f4;
+  --red:#D98B92;
+  --pink:#F7E5E6;
+  --light:#F1F2F4;
   --dark:#414247;
   --white:#fff;
 }
-*{box-sizing:border-box;scroll-behavior:smooth}
-body{margin:0;font-family:Arial,sans-serif;background:#fff;color:var(--dark)}
-header{
-  position:sticky;top:0;z-index:10;background:#ffffffed;
-  backdrop-filter:blur(12px);padding:15px 7%;
-  display:flex;align-items:center;justify-content:space-between;
-  box-shadow:0 2px 15px #0000000d
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:Arial,sans-serif;
+  background:var(--light);
+  color:var(--dark);
+  line-height:1.6;
 }
-.logo{font-weight:900;color:#c8757d;font-size:21px;text-decoration:none}
-nav{display:flex;gap:25px}
-nav a{color:var(--dark);text-decoration:none;font-size:14px;font-weight:600}
-nav a:hover{color:var(--dark-red)}
-.menu-btn{display:none;border:0;background:none;font-size:25px;color:var(--dark)}
-.hero{
-  min-height:570px;padding:100px 8%;display:flex;align-items:center;
-  background:linear-gradient(120deg,#f7e5e6,#fff 65%,#f1f2f4)
+header {
+  background:rgba(255,255,255,.96);
+  padding:15px 7%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:0 3px 15px #0000000d;
 }
-.hero-content{max-width:700px}
-.tag{background:#fff;border-radius:30px;padding:9px 16px;font-size:12px;color:#bd727a}
-h1{font-size:clamp(38px,7vw,65px);line-height:1.1;margin:25px 0 15px}
-h1 span{color:#d98b92}
-.hero p{font-size:17px;line-height:1.8;color:#666;max-width:570px}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.btn{
-  display:inline-block;padding:14px 23px;border-radius:12px;
-  text-decoration:none;font-weight:bold;font-size:14px;
-  background:var(--dark-red);color:white;border:1px solid var(--dark-red)
+.brand { font-size:19px; font-weight:bold; color:var(--dark); }
+.brand span { color:var(--red); }
+nav { display:flex; gap:22px; align-items:center; }
+nav a {
+  color:var(--dark);
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
 }
-.btn.secondary{background:white;color:var(--dark)}
-section{padding:75px 8%}
-.section-title{text-align:center;margin-bottom:40px}
-.section-title h2{font-size:32px;margin-bottom:10px}
-.section-title p{color:#777;line-height:1.6}
-.identity{background:#fff}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{
-  padding:25px;border-radius:18px;background:var(--grey);
-  border:1px solid #e8e8e8;transition:.2s
+nav a:hover { color:var(--red); }
+.menu-btn {
+  display:none;
+  border:0;
+  background:var(--pink);
+  padding:9px 13px;
+  border-radius:9px;
+  font-size:21px;
 }
-.card:hover{transform:translateY(-5px);box-shadow:0 10px 25px #00000012}
-.card small{color:#bd727a;font-weight:bold}
-.card h3{margin:12px 0 8px}
-.card p{color:#777;line-height:1.6;font-size:14px}
-.about{background:#f7e5e6}
-.about-content{max-width:750px;margin:auto;text-align:center;line-height:1.9;color:#555}
-.modules{background:#fff}
-.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.module{
-  background:#f7f7f8;padding:25px;border-radius:18px;
-  text-decoration:none;color:var(--dark);border:1px solid #eee;
-  transition:.2s;display:block
+.hero {
+  padding:90px 8%;
+  background:linear-gradient(130deg,#F7E5E6,#fff,#e9e9ed);
+  text-align:center;
 }
-.module:hover{background:#f7e5e6;transform:translateY(-4px)}
-.module .symbol{font-size:28px}
-.module h3{margin:14px 0 8px}
-.module p{font-size:13px;color:#777;line-height:1.6}
-.cta{background:#414247;color:white;text-align:center}
-.cta p{color:#ddd;line-height:1.7}
-footer{padding:30px 8%;background:#303136;color:#ddd;text-align:center;font-size:13px;line-height:1.8}
-@media(max-width:700px){
-  header{padding:15px 5%}
-  .menu-btn{display:block}
-  nav{
-    display:none;position:absolute;top:60px;left:0;right:0;
-    background:white;padding:20px;flex-direction:column;gap:20px;
-    box-shadow:0 8px 15px #00000012
+.eyebrow {
+  color:#b96f78;
+  font-weight:bold;
+  letter-spacing:2px;
+  font-size:12px;
+}
+.hero h1 {
+  font-size:clamp(35px,6vw,58px);
+  line-height:1.15;
+  margin:18px 0;
+}
+.hero h1 span { color:var(--red); }
+.hero p {
+  max-width:650px;
+  margin:0 auto 27px;
+  color:#666;
+}
+.btn {
+  display:inline-block;
+  background:var(--red);
+  color:white;
+  padding:12px 23px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:bold;
+}
+.btn:hover { background:#c77982; }
+section { padding:65px 8%; scroll-margin-top:75px; }
+.section-title { text-align:center; margin-bottom:35px; }
+.section-title h2 { font-size:29px; }
+.section-title p { color:#777; margin-top:7px; }
+.identity-grid,.module-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.card {
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 5px 20px #00000009;
+  transition:.25s;
+}
+.card:hover { transform:translateY(-5px); }
+.card .symbol { font-size:27px; margin-bottom:12px; }
+.card h3 { margin-bottom:8px; font-size:18px; }
+.card p { color:#777; font-size:14px; }
+.about {
+  background:white;
+  text-align:center;
+}
+.about p { max-width:750px; margin:12px auto; color:#666; }
+.modules { background:var(--light); }
+.module-card {
+  color:var(--dark);
+  text-decoration:none;
+  display:block;
+}
+.module-card:hover h3 { color:var(--red); }
+.module-card .arrow { color:var(--red); font-weight:bold; margin-top:15px; }
+.status {
+  text-align:center;
+  background:var(--pink);
+  border-radius:18px;
+  padding:35px 20px;
+}
+.status p { margin-top:8px; color:#666; }
+footer {
+  padding:25px 8%;
+  background:var(--dark);
+  color:white;
+  text-align:center;
+  font-size:13px;
+}
+@media(max-width:700px) {
+  header { padding:13px 5%; }
+  .menu-btn { display:block; }
+  nav {
+    display:none;
+    position:absolute;
+    top:65px;
+    left:0;
+    width:100%;
+    padding:20px;
+    background:white;
+    flex-direction:column;
+    align-items:stretch;
+    gap:17px;
+    box-shadow:0 8px 15px #00000012;
   }
-  nav.open{display:flex}
-  .hero{padding:80px 7%;min-height:500px}
-  section{padding:60px 6%}
-  .cards,.module-grid{grid-template-columns:1fr}
-  .section-title h2{font-size:27px}
+  nav.show { display:flex; }
+  nav a { padding:5px; }
+  .hero { padding:75px 7%; }
+  section { padding:50px 6%; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <a class="logo" href="#beranda">AMBALAN.DIGITAL</a>
+  <div class="brand">AMBALAN<span>DIGITAL</span></div>
   <button class="menu-btn" onclick="toggleMenu()" aria-label="Buka menu">☰</button>
   <nav id="navigation">
     <a href="#beranda" onclick="closeMenu()">Beranda</a>
-    <a href="#profil" onclick="closeMenu()">Profil</a>
-    <a href="#fitur" onclick="closeMenu()">Fitur</a>
+    <a href="#identitas" onclick="closeMenu()">Identitas</a>
     <a href="#tentang" onclick="closeMenu()">Tentang</a>
+    <a href="#fitur" onclick="closeMenu()">Fitur</a>
   </nav>
 </header>
 
 <main>
 <section class="hero" id="beranda">
-  <div class="hero-content">
-    <span class="tag">SISTEM INFORMASI DEWAN AMBALAN</span>
-    <h1>Satu Ambalan,<br><span>Satu Sistem.</span></h1>
-    <p>Bergerak dalam pengabdian. Platform digital untuk mengelola administrasi, pembelajaran, kegiatan, dan informasi Ambalan secara terintegrasi.</p>
-    <div class="actions">
-      <a class="btn" href="#fitur">Jelajahi Fitur</a>
-      <a class="btn secondary" href="#profil">Kenali Ambalan</a>
-    </div>
-  </div>
+  <div class="eyebrow">SISTEM INFORMASI DEWAN AMBALAN</div>
+  <h1>Selamat Datang di<br><span>Ambalan Digital</span></h1>
+  <p>Satu ruang digital untuk mengelola administrasi, kegiatan, pembelajaran, dan informasi Ambalan Pramuka secara terintegrasi.</p>
+  <a href="#fitur" class="btn">Jelajahi Website</a>
 </section>
 
-<section class="identity" id="profil">
+<section id="identitas">
   <div class="section-title">
     <h2>Identitas Ambalan</h2>
-    <p>Mengenal pangkalan dan identitas organisasi kami.</p>
+    <p>Mengenal pangkalan dan identitas kepramukaan kami.</p>
   </div>
-  <div class="cards">
+  <div class="identity-grid">
     <div class="card">
-      <small>SEKOLAH</small>
-      <h3>SMAN 2 Cibinong</h3>
-      <p>Tempat bernaung dan berkembangnya Ambalan.</p>
+      <div class="symbol">🏫</div>
+      <h3>Sekolah</h3>
+      <p>SMAN 2 Cibinong</p>
     </div>
     <div class="card">
-      <small>AMBALAN</small>
-      <h3>Ambalan Putri Moh. Hatta – H. R. Rasuna Said</h3>
-      <p>Identitas Ambalan Putri.</p>
+      <div class="symbol">⚜️</div>
+      <h3>Ambalan</h3>
+      <p>Ambalan Putri Moh. Hatta – H. R. Rasuna Said</p>
     </div>
     <div class="card">
-      <small>GUGUS DEPAN</small>
-      <h3>19.265–19.266</h3>
-      <p>Identitas Gugus Depan Pramuka.</p>
+      <div class="symbol">📜</div>
+      <h3>Gugus Depan</h3>
+      <p>19.265–19.266</p>
     </div>
   </div>
 </section>
@@ -142,50 +201,88 @@ footer{padding:30px 8%;background:#303136;color:#ddd;text-align:center;font-size
   <div class="section-title">
     <h2>Tentang Ambalan Digital</h2>
   </div>
-  <div class="about-content">
-    AMBALAN DIGITAL merupakan sistem informasi dan manajemen Dewan Ambalan yang dirancang untuk mempermudah pengelolaan data anggota, administrasi, pembelajaran, presensi, serta berbagai kegiatan kepramukaan. Satu ruang digital untuk mendukung Ambalan yang lebih tertata, aktif, dan berkembang.
-  </div>
+  <p>Ambalan Digital merupakan platform informasi dan manajemen Dewan Ambalan yang dirancang untuk mendukung pengelolaan organisasi Pramuka secara lebih tertata, efektif, dan mudah diakses.</p>
+  <p><strong>Satu Ambalan, Satu Sistem, Bergerak dalam Pengabdian.</strong></p>
 </section>
 
 <section class="modules" id="fitur">
   <div class="section-title">
-    <h2>Fitur dan Layanan</h2>
-    <p>Berbagai modul yang dirancang untuk mendukung aktivitas Ambalan.</p>
+    <h2>Fitur Website</h2>
+    <p>Berbagai modul untuk mendukung aktivitas Ambalan.</p>
   </div>
   <div class="module-grid">
-    <a class="module" href="#status-fitur"><div class="symbol">📚</div><h3>E-Learning</h3><p>Materi pembelajaran dan pengetahuan kepramukaan.</p></a>
-    <a class="module" href="#status-fitur"><div class="symbol">📝</div><h3>Kuis & Evaluasi</h3><p>Latihan soal, evaluasi, dan hasil pembelajaran.</p></a>
-    <a class="module" href="#status-fitur"><div class="symbol">👥</div><h3>Data Anggota</h3><p>Pengelolaan identitas dan informasi anggota.</p></a>
-    <a class="module" href="#status-fitur"><div class="symbol">📋</div><h3>Presensi</h3><p>Pencatatan dan pemantauan kehadiran kegiatan.</p></a>
-    <a class="module" href="#status-fitur"><div class="symbol">💰</div><h3>Administrasi Keuangan</h3><p>Pencatatan pemasukan dan pengeluaran Ambalan.</p></a>
-    <a class="module" href="#status-fitur"><div class="symbol">📢</div><h3>Pusat Informasi</h3><p>Pengumuman dan informasi kegiatan Ambalan.</p></a>
-    <a class="module" href="#status-fitur"><div class="symbol">📅</div><h3>Kalender Kegiatan</h3><p>Jadwal dan agenda kegiatan Ambalan.</p></a>
-    <a class="module" href="#status-fitur"><div class="symbol">🏅</div><h3>Badge & Pencapaian</h3><p>Apresiasi atas partisipasi dan pencapaian anggota.</p></a>
-    <a class="module" href="#status-fitur"><div class="symbol">🔔</div><h3>Notifikasi</h3><p>Pemberitahuan informasi terbaru untuk anggota.</p></a>
+    <a href="#status-fitur" class="card module-card">
+      <div class="symbol">👥</div>
+      <h3>Data Anggota</h3>
+      <p>Informasi dan administrasi anggota Ambalan.</p>
+      <div class="arrow">Lihat fitur →</div>
+    </a>
+    <a href="#status-fitur" class="card module-card">
+      <div class="symbol">📚</div>
+      <h3>E-Learning</h3>
+      <p>Materi kepramukaan dan pembelajaran digital.</p>
+      <div class="arrow">Lihat fitur →</div>
+    </a>
+    <a href="#status-fitur" class="card module-card">
+      <div class="symbol">📝</div>
+      <h3>Kuis dan Evaluasi</h3>
+      <p>Latihan soal dan evaluasi pengetahuan anggota.</p>
+      <div class="arrow">Lihat fitur →</div>
+    </a>
+    <a href="#status-fitur" class="card module-card">
+      <div class="symbol">📅</div>
+      <h3>Kalender Kegiatan</h3>
+      <p>Jadwal kegiatan dan agenda Ambalan.</p>
+      <div class="arrow">Lihat fitur →</div>
+    </a>
+    <a href="#status-fitur" class="card module-card">
+      <div class="symbol">📋</div>
+      <h3>Presensi</h3>
+      <p>Pencatatan kehadiran anggota.</p>
+      <div class="arrow">Lihat fitur →</div>
+    </a>
+    <a href="#status-fitur" class="card module-card">
+      <div class="symbol">💰</div>
+      <h3>Keuangan</h3>
+      <p>Pengelolaan pemasukan dan pengeluaran Ambalan.</p>
+      <div class="arrow">Lihat fitur →</div>
+    </a>
+    <a href="#status-fitur" class="card module-card">
+      <div class="symbol">📢</div>
+      <h3>Pengumuman</h3>
+      <p>Pusat informasi dan pemberitahuan organisasi.</p>
+      <div class="arrow">Lihat fitur →</div>
+    </a>
+    <a href="#status-fitur" class="card module-card">
+      <div class="symbol">🏅</div>
+      <h3>Prestasi dan Badge</h3>
+      <p>Apresiasi pencapaian serta perkembangan anggota.</p>
+      <div class="arrow">Lihat fitur →</div>
+    </a>
   </div>
 </section>
 
-<section class="cta" id="status-fitur">
-  <h2>Bergerak Bersama, Bertumbuh Bersama.</h2>
-  <p>Fitur internal akan tersedia setelah proses integrasi akun dan sistem selesai.</p>
-  <a class="btn" href="#beranda">Kembali ke Beranda</a>
+<section id="status-fitur">
+  <div class="status">
+    <h2>Pengembangan Ambalan Digital</h2>
+    <p>Modul internal sedang dipersiapkan dan akan tersedia setelah proses pengembangan selesai.</p>
+  </div>
 </section>
 </main>
 
 <footer>
-  <strong>AMBALAN DIGITAL</strong><br>
-  Ambalan Putri Moh. Hatta – H. R. Rasuna Said<br>
-  Gugus Depan 19.265–19.266 · SMAN 2 Cibinong<br><br>
-  Satu Ambalan, Satu Sistem, Bergerak dalam Pengabdian.
+  <p>© 2026 Ambalan Digital | SMAN 2 Cibinong</p>
+  <p>Satu Ambalan, Satu Sistem, Bergerak dalam Pengabdian.</p>
 </footer>
 
 <script>
-function toggleMenu(){
-  document.getElementById('navigation').classList.toggle('open');
+function toggleMenu() {
+  document.getElementById('navigation').classList.toggle('show');
 }
-function closeMenu(){
-  document.getElementById('navigation').classList.remove('open');
+function closeMenu() {
+  document.getElementById('navigation').classList.remove('show');
 }
 </script>
+
 </body>
 </html>
