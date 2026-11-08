@@ -591,6 +591,73 @@ async function deleteMember(id) {
     alert('Gagal menghapus data: ' + error.message);
   }
 }
+  async function loadAttendanceMembers() {
+  const select = document.getElementById('attendanceMember');
+  const dateInput = document.getElementById('attendanceDate');
+
+  try {
+    const { data, error } = await db
+      .from('members')
+      .select('id, nama_lengkap')
+      .order('nama_lengkap', { ascending: true });
+
+    if (error) throw error;
+
+    select.innerHTML = '<option value="">Pilih Anggota</option>';
+
+    data.forEach(member => {
+      const option = document.createElement('option');
+      option.value = member.id;
+      option.textContent = member.nama_lengkap;
+      select.appendChild(option);
+    });
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+
+    dateInput.value = `${year}-${month}-${day}`;
+
+  } catch (error) {
+    document.getElementById('attendanceMessage').textContent =
+      'Gagal memuat anggota: ' + error.message;
+  }
+}
+
+async function saveAttendance() {
+  const memberId = document.getElementById('attendanceMember').value;
+  const tanggal = document.getElementById('attendanceDate').value;
+  const status = document.getElementById('attendanceStatus').value;
+  const keterangan = document.getElementById('attendanceNote').value.trim();
+  const message = document.getElementById('attendanceMessage');
+
+  if (!memberId || !tanggal) {
+    message.textContent = 'Pilih anggota dan tanggal terlebih dahulu.';
+    return;
+  }
+
+  message.textContent = 'Menyimpan presensi...';
+
+  try {
+    const { error } = await db
+      .from('attendance')
+      .insert([{
+        member_id: memberId,
+        tanggal: tanggal,
+        status: status,
+        keterangan: keterangan || null
+      }]);
+
+    if (error) throw error;
+
+    message.textContent = 'Presensi berhasil disimpan!';
+    document.getElementById('attendanceNote').value = '';
+
+  } catch (error) {
+    message.textContent = 'Gagal menyimpan presensi: ' + error.message;
+  }
+}
 </script>
 
 </body>
