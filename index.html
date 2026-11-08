@@ -632,31 +632,80 @@ async function saveAttendance() {
   const keterangan = document.getElementById('attendanceNote').value.trim();
   const message = document.getElementById('attendanceMessage');
 
+  const SEKOLAH_LAT = -6.5228617;
+  const SEKOLAH_LNG = 106.8078650;
+  const RADIUS_METER = 50;
+
   if (!memberId || !tanggal) {
     message.textContent = 'Pilih anggota dan tanggal terlebih dahulu.';
     return;
   }
 
-  message.textContent = 'Menyimpan presensi...';
-
-  try {
-    const { error } = await db
-      .from('attendance')
-      .insert([{
-        member_id: memberId,
-        tanggal: tanggal,
-        status: status,
-        keterangan: keterangan || null
-      }]);
-
-    if (error) throw error;
-
-    message.textContent = 'Presensi berhasil disimpan!';
-    document.getElementById('attendanceNote').value = '';
-
-  } catch (error) {
-    message.textContent = 'Gagal menyimpan presensi: ' + error.message;
+  if (!navigator.geolocation) {
+    message.textContent = 'Perangkat tidak mendukung GPS.';
+    return;
   }
+
+  message.textContent = 'Memeriksa lokasi perangkat...';
+
+  navigator.geolocation.getCurrentPosition(async (position) => {
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
+    const R = 6371000;
+    const toRad = value => value * Math.PI / 180;
+
+    const dLat = toRad(lat - SEKOLAH_LAT);
+    const dLng = toRad(lng - SEKOLAH_LNG);
+
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(toRad(SEKOLAH_LAT)) *
+      Math.cos(toRad(lat)) *
+      Math.sin(dLng / 2) ** 2;
+
+    const jarak = 2 * R * Math.atan2(
+      Math.sqrt(a),
+      Math.sqrt(1 - a)
+    );
+
+    if (jarak > RADIUS_METER) {
+      message.textContent =
+        'Presensi ditolak. Kamu berada di luar area sekolah (' +
+        Math.round(jarak) + ' meter).';
+      return;
+    }
+
+    message.textContent = 'Lokasi sesuai. Menyimpan presensi...';
+
+    try {
+      const { error } = await db
+        .from('attendance')
+        .insert([{
+          member_id: memberId,
+          tanggal: tanggal,
+          status: status,
+          keterangan: keterangan || null
+        }]);
+
+      if (error) throw error;
+
+      message.textContent = 'Presensi berhasil disimpan!';
+      document.getElementById('attendanceNote').value = '';
+
+    } catch (error) {
+      message.textContent =
+        'Gagal menyimpan presensi: ' + error.message;
+    }
+
+  }, (error) => {
+    message.textContent =
+      'Lokasi tidak dapat diakses. Aktifkan GPS dan izinkan akses lokasi.';
+  }, {
+    enableHighAccuracy: true,
+    timeout: 15000,
+    maximumAge: 0
+  });
 }
 </script>
 
