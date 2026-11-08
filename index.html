@@ -422,6 +422,7 @@ async function loginOwner() {
     document.getElementById('ownerDashboard').style.display = 'block';
     document.getElementById('ownerWelcome').textContent =
       'Selamat datang, ' + (profile.full_name || 'Owner') + '!';
+    await loadAttendanceMembers();
   } catch (error) {
     message.textContent = 'Gagal login: ' + error.message;
   }
