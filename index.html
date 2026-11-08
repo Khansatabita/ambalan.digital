@@ -381,6 +381,50 @@ async function logoutOwner() {
   await db.auth.signOut();
   document.getElementById('ownerDashboard').style.display = 'none';
 }
+  async function loadMembers() {
+  const message = document.getElementById('memberMessage');
+  const list = document.getElementById('memberList');
+
+  message.textContent = 'Memuat data anggota...';
+  list.innerHTML = '';
+
+  try {
+    const { data, error } = await db
+      .from('members')
+      .select('nomor_anggota, nama_lengkap, kelas, jabatan')
+      .order('nama_lengkap', { ascending: true });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      message.textContent = 'Belum ada data anggota.';
+      return;
+    }
+
+    message.textContent = 'Total anggota: ' + data.length;
+
+    data.forEach(member => {
+      const card = document.createElement('div');
+      card.style.cssText =
+        'background:#F7E5E6;padding:15px;border-radius:10px;margin-bottom:10px';
+
+      const name = document.createElement('strong');
+      name.textContent = member.nama_lengkap || 'Tanpa nama';
+
+      const detail = document.createElement('p');
+      detail.textContent =
+        'Nomor: ' + (member.nomor_anggota || '-') +
+        ' | Kelas: ' + (member.kelas || '-') +
+        ' | Jabatan: ' + (member.jabatan || '-');
+
+      card.append(name, detail);
+      list.appendChild(card);
+    });
+
+  } catch (error) {
+    message.textContent = 'Gagal memuat data: ' + error.message;
+  }
+}
 </script>
 
 </body>
