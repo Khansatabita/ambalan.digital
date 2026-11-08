@@ -352,6 +352,36 @@ Login Owner
       <p id="memberMessage" style="margin-top:15px"></p>
       <div id="memberList" style="margin-top:15px"></div>
     </div>
+    <div style="background:white;padding:22px;border-radius:15px;margin-bottom:15px">
+  <h3>Presensi Anggota</h3>
+  <p>Catat kehadiran anggota Ambalan.</p>
+
+  <select id="attendanceMember"
+    style="width:100%;padding:12px;margin-top:15px;border:1px solid #ddd;border-radius:8px">
+    <option value="">Pilih Anggota</option>
+  </select>
+
+  <input type="date" id="attendanceDate"
+    style="width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px">
+
+  <select id="attendanceStatus"
+    style="width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px">
+    <option value="Hadir">Hadir</option>
+    <option value="Izin">Izin</option>
+    <option value="Sakit">Sakit</option>
+    <option value="Alpa">Alpa</option>
+  </select>
+
+  <input id="attendanceNote" placeholder="Keterangan (opsional)"
+    style="width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px">
+
+  <button onclick="saveAttendance()"
+    style="padding:12px 20px;margin-top:12px;background:#D98B92;color:white;border:0;border-radius:9px">
+    Simpan Presensi
+  </button>
+
+  <p id="attendanceMessage" style="margin-top:12px"></p>
+</div>
 
     <button onclick="logoutOwner()" style="padding:12px 20px;background:#D98B92;color:white;border:0;border-radius:9px">
       Keluar
