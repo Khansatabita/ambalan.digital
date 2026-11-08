@@ -411,7 +411,7 @@ async function logoutOwner() {
   try {
     const { data, error } = await db
       .from('members')
-      .select('nomor_anggota, nama_lengkap, kelas, jabatan')
+      .select('id, nomor_anggota, nama_lengkap, kelas, jabatan')
       .order('nama_lengkap', { ascending: true });
 
     if (error) throw error;
@@ -420,6 +420,44 @@ async function logoutOwner() {
       message.textContent = 'Belum ada data anggota.';
       return;
     }
+
+    message.textContent = 'Total anggota: ' + data.length;
+
+    data.forEach(member => {
+      const card = document.createElement('div');
+
+      card.style.cssText =
+        'background:#F7E5E6;padding:15px;border-radius:10px;margin-bottom:10px';
+
+      const name = document.createElement('strong');
+      name.textContent = member.nama_lengkap || 'Tanpa nama';
+
+      const detail = document.createElement('p');
+      detail.textContent =
+        'Nomor: ' + (member.nomor_anggota || '-') +
+        ' | Kelas: ' + (member.kelas || '-') +
+        ' | Jabatan: ' + (member.jabatan || '-');
+
+      const editButton = document.createElement('button');
+      editButton.textContent = 'Edit';
+      editButton.style.cssText =
+        'padding:8px 14px;margin:10px 8px 0 0;background:#D98B92;color:white;border:0;border-radius:7px';
+      editButton.onclick = () => editMember(member.id);
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Hapus';
+      deleteButton.style.cssText =
+        'padding:8px 14px;margin-top:10px;background:#777;color:white;border:0;border-radius:7px';
+      deleteButton.onclick = () => deleteMember(member.id);
+
+      card.append(name, detail, editButton, deleteButton);
+      list.appendChild(card);
+    });
+
+  } catch (error) {
+    message.textContent = 'Gagal memuat data: ' + error.message;
+  }
+  }
 
     message.textContent = 'Total anggota: ' + data.length;
 
