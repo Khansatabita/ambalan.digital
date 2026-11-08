@@ -326,6 +326,26 @@ Login Owner
     <div style="background:white;padding:22px;border-radius:15px;margin-bottom:15px">
       <h3>Data Anggota</h3>
       <p>Daftar anggota Ambalan yang tersimpan di database.</p>
+      <div style="margin-top:20px;background:#F7E5E6;padding:18px;border-radius:12px">
+  <h3>Tambah Anggota</h3>
+
+  <input id="memberNumber" placeholder="Nomor Anggota"
+    style="width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px">
+
+  <input id="memberName" placeholder="Nama Lengkap"
+    style="width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px">
+
+  <input id="memberClass" placeholder="Kelas"
+    style="width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px">
+
+  <input id="memberPosition" placeholder="Jabatan"
+    style="width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px">
+
+  <button onclick="addMember()"
+    style="padding:12px 20px;background:#D98B92;color:white;border:0;border-radius:9px">
+    Simpan Anggota
+  </button>
+</div>
       <button onclick="loadMembers()" style="margin-top:15px;padding:12px 20px;background:#D98B92;color:white;border:0;border-radius:9px">
         Muat Data Anggota
       </button>
