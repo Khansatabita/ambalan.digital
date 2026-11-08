@@ -736,6 +736,53 @@ async function saveAttendance() {
     maximumAge: 0
   });
 }
+  async function loadPendingMembers() {
+  const list = document.getElementById('pendingMembersList');
+
+  list.textContent = 'Memuat daftar pendaftar...';
+
+  try {
+    const { data, error } = await db
+      .from('profiles')
+      .select('id, full_name, nomor_anggota, created_at')
+      .eq('role', 'anggota')
+      .eq('is_approved', false)
+      .order('created_at', { ascending: true });
+
+    if (error) throw error;
+
+    list.innerHTML = '';
+
+    if (!data || data.length === 0) {
+      list.textContent = 'Belum ada akun yang menunggu persetujuan.';
+      return;
+    }
+
+    data.forEach(member => {
+      const card = document.createElement('div');
+      card.style.cssText =
+        'background:white;padding:14px;border-radius:10px;margin-top:10px';
+
+      const info = document.createElement('p');
+      info.textContent =
+        (member.full_name || 'Tanpa nama') +
+        ' | Nomor: ' + (member.nomor_anggota || '-');
+
+      const button = document.createElement('button');
+      button.textContent = 'Setujui Akun';
+      button.style.cssText =
+        'padding:9px 14px;margin-top:10px;background:#D98B92;color:white;border:0;border-radius:8px';
+
+      button.onclick = () => approveMemberAccount(member.id);
+
+      card.append(info, button);
+      list.appendChild(card);
+    });
+
+  } catch (error) {
+    list.textContent = 'Gagal memuat pendaftar: ' + error.message;
+  }
+}
   function openMemberRegister() {
   document.getElementById('ownerLogin').style.display = 'none';
   document.getElementById('memberRegister').style.display = 'flex';
