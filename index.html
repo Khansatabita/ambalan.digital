@@ -346,35 +346,42 @@ style="width:100%;padding:12px;margin-top:10px;background:#F7E5E6;color:#9D5961;
     <p id="ownerWelcome" style="margin:10px 0 25px"></p>
 
     <div style="background:white;padding:22px;border-radius:15px;margin-bottom:15px">
-      <div style="background:#F7E5E6;padding:18px;border-radius:12px;margin-bottom:18px">
-  <h3>Tambah Materi Kepramukaan</h3>
+<div style="background:#F7E5E6;padding:18px;border-radius:12px;margin-bottom:18px">
+  <h3>Buat Materi Kepramukaan</h3>
 
   <input id="materialTitle" placeholder="Judul Materi"
     style="width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:8px">
 
-  <textarea id="materialDescription" placeholder="Isi atau deskripsi materi"
-    style="width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:8px;min-height:120px"></textarea>
-        <label style="display:block;margin:12px 0 6px">
-  Gambar Materi
-</label>
-
-<input
-  type="file"
-  id="materialImage"
-  accept="image/*"
-  style="width:100%;padding:10px;margin-bottom:12px"
->
-
   <input id="materialCategory" placeholder="Kategori Materi"
     style="width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:8px">
 
-  <button onclick="saveMaterial()"
-    style="padding:12px 20px;background:#D98B92;color:white;border:0;border-radius:9px">
+  <h4>Susun Isi Materi</h4>
+  <p>Tambahkan berbagai jenis blok sesuai kebutuhan.</p>
+
+  <select id="materialBlockType"
+    style="width:100%;padding:12px;margin:10px 0;border-radius:8px">
+    <option value="text">Blok Teks</option>
+    <option value="image">Blok Gambar</option>
+    <option value="quote">Kutipan</option>
+    <option value="fact">Fakta Menarik</option>
+    <option value="challenge">Tantangan</option>
+    <option value="video">Video</option>
+  </select>
+
+  <button onclick="addMaterialBlock()"
+    style="padding:12px;background:#D98B92;color:white;border:0;border-radius:8px">
+    + Tambah Blok
+  </button>
+
+  <div id="materialBlocksEditor" style="margin-top:15px"></div>
+
+  <button onclick="publishMaterialBlocks()"
+    style="width:100%;padding:13px;background:#D98B92;color:white;border:0;border-radius:8px;margin-top:15px">
     Publikasikan Materi
   </button>
 
   <p id="materialMessage" style="margin-top:10px"></p>
-      </div>
+</div>
       <h3>Data Anggota</h3>
       <p>Daftar anggota Ambalan yang tersimpan di database.</p>
       <div style="background:#FFF4E8;padding:18px;border-radius:12px;margin-top:18px;margin-bottom:18px">
