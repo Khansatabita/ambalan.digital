@@ -775,7 +775,100 @@ async function publishMaterialBlocks() {
     message.textContent = 'Gagal menyimpan materi: ' + error.message;
   }
   }
+async function loadMemberMaterials() {
+  const container = document.getElementById('memberMaterials');
 
+  container.innerHTML = 'Memuat materi...';
+
+  try {
+    const { data, error } = await db
+      .from('learning_materials')
+      .select('id, title, category, blocks, created_at')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    container.innerHTML = '';
+
+    if (!data || data.length === 0) {
+      container.textContent = 'Belum ada materi yang tersedia.';
+      return;
+    }
+
+    data.forEach(material => {
+      const card = document.createElement('div');
+
+      card.style.cssText =
+        'background:#F7E5E6;padding:18px;border-radius:12px;margin-top:15px';
+
+      const title = document.createElement('h3');
+      title.textContent = material.title;
+
+      const category = document.createElement('p');
+      category.textContent = material.category || 'Materi Kepramukaan';
+      category.style.cssText = 'color:#777;margin-bottom:12px';
+
+      card.append(title, category);
+
+      (material.blocks || []).forEach(block => {
+        const content = document.createElement('div');
+        content.style.cssText = 'margin-top:15px';
+
+        if (block.type === 'text') {
+          content.textContent = block.content;
+          content.style.whiteSpace = 'pre-wrap';
+        }
+
+        else if (block.type === 'quote') {
+          content.textContent = '“' + block.content + '”';
+          content.style.cssText =
+            'margin-top:15px;padding:15px;background:white;border-left:4px solid #D98B92;font-style:italic';
+        }
+
+        else if (block.type === 'fact') {
+          content.textContent = '💡 ' + block.content;
+          content.style.cssText =
+            'margin-top:15px;padding:15px;background:#FFF4E8;border-radius:10px';
+        }
+
+        else if (block.type === 'challenge') {
+          content.textContent = '🎯 Tantangan: ' + block.content;
+          content.style.cssText =
+            'margin-top:15px;padding:15px;background:white;border-radius:10px';
+        }
+
+        else if (block.type === 'image') {
+          const image = document.createElement('img');
+          image.src = block.content;
+          image.alt = material.title;
+          image.style.cssText =
+            'width:100%;max-width:100%;border-radius:10px;margin-top:10px';
+          content.appendChild(image);
+        }
+
+        else if (block.type === 'video') {
+          const link = document.createElement('a');
+          link.href = block.content;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = '▶️ Buka Video Pembelajaran';
+          link.style.cssText =
+            'display:inline-block;padding:12px;background:#D98B92;color:white;border-radius:9px;text-decoration:none';
+          content.appendChild(link);
+        }
+
+        card.appendChild(content);
+      });
+
+      container.appendChild(card);
+    });
+
+  } catch (error) {
+    container.textContent =
+      'Gagal memuat materi: ' + error.message;
+  }
+}
+  
 async function editMember(id) {
   try {
     const { data: member, error } = await db
