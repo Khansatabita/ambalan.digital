@@ -540,7 +540,7 @@ async function loginOwner() {
       document.getElementById('memberDashboard').style.display = 'block';
       document.getElementById('memberWelcome').textContent =
         'Selamat datang, ' + (profile.full_name || 'Anggota') + '!';
-
+      await loadMemberMaterials();
       return;
     }
 
