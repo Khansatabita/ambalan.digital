@@ -656,43 +656,125 @@ async function logoutOwner() {
   }
 }
 
-async function saveMaterial() {
+function addMaterialBlock() {
+  const type = document.getElementById('materialBlockType').value;
+  const editor = document.getElementById('materialBlocksEditor');
+
+  const card = document.createElement('div');
+  card.dataset.type = type;
+  card.style.cssText =
+    'background:white;padding:15px;border-radius:12px;margin-bottom:12px;border:1px solid #ddd';
+
+  const title = document.createElement('strong');
+  title.textContent = {
+    text: '📝 Blok Teks',
+    image: '🖼️ Blok Gambar',
+    quote: '💬 Blok Kutipan',
+    fact: '💡 Fakta Menarik',
+    challenge: '🎯 Tantangan',
+    video: '▶️ Blok Video'
+  }[type];
+
+  const field = document.createElement(
+    type === 'image' || type === 'video' ? 'input' : 'textarea'
+  );
+
+  field.className = 'block-content';
+  field.style.cssText =
+    'width:100%;padding:12px;margin:12px 0;border:1px solid #ddd;border-radius:8px';
+
+  field.placeholder = {
+    text: 'Tulis isi materi...',
+    image: 'Masukkan URL gambar...',
+    quote: 'Tulis kutipan...',
+    fact: 'Tulis fakta menarik...',
+    challenge: 'Tulis tantangan...',
+    video: 'Masukkan URL video...'
+  }[type];
+
+  if (type === 'image' || type === 'video') {
+    field.type = 'url';
+  } else {
+    field.rows = 4;
+  }
+
+  const remove = document.createElement('button');
+  remove.textContent = 'Hapus Blok';
+  remove.style.cssText =
+    'padding:8px 12px;background:#777;color:white;border:0;border-radius:7px';
+
+  remove.onclick = () => card.remove();
+
+  card.append(title, field, remove);
+  editor.appendChild(card);
+}
+
+async function publishMaterialBlocks() {
   const title = document.getElementById('materialTitle').value.trim();
-  const description = document.getElementById('materialDescription').value.trim();
   const category = document.getElementById('materialCategory').value.trim();
   const message = document.getElementById('materialMessage');
 
-  if (!title || !description) {
-    message.textContent = 'Judul dan isi materi wajib diisi.';
+  const cards = document.querySelectorAll('#materialBlocksEditor > div');
+
+  if (!title) {
+    message.textContent = 'Judul materi wajib diisi.';
     return;
+  }
+
+  if (cards.length === 0) {
+    message.textContent = 'Tambahkan minimal satu blok materi.';
+    return;
+  }
+
+  const blocks = [];
+
+  for (const card of cards) {
+    const content = card.querySelector('.block-content').value.trim();
+
+    if (!content) {
+      message.textContent = 'Semua blok harus diisi.';
+      return;
+    }
+
+    blocks.push({
+      type: card.dataset.type,
+      content: content
+    });
   }
 
   message.textContent = 'Menyimpan materi...';
 
   try {
-    const { data: { user }, error: userError } = await db.auth.getUser();
+    const { data: { user }, error: userError } =
+      await db.auth.getUser();
 
     if (userError) throw userError;
     if (!user) throw new Error('Sesi login tidak ditemukan.');
 
+    const description = blocks
+      .map(block => block.content)
+      .join('\n\n');
+
     const { error } = await db.from('learning_materials').insert([{
-      title: title,
-      description: description,
+      title,
+      description,
       category: category || null,
-      uploaded_by: user.id
+      uploaded_by: user.id,
+      blocks
     }]);
 
     if (error) throw error;
 
-    message.textContent = 'Materi berhasil dipublikasikan.';
+    message.textContent = 'Materi berhasil dipublikasikan!';
 
-    ['materialTitle', 'materialDescription', 'materialCategory']
-      .forEach(id => document.getElementById(id).value = '');
+    document.getElementById('materialTitle').value = '';
+    document.getElementById('materialCategory').value = '';
+    document.getElementById('materialBlocksEditor').innerHTML = '';
 
   } catch (error) {
     message.textContent = 'Gagal menyimpan materi: ' + error.message;
   }
-}
+  }
 
 async function editMember(id) {
   try {
