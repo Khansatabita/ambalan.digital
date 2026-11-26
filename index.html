@@ -608,7 +608,7 @@ async function loginMember() {
 
     const { data: profile, error: profileError } = await db
       .from('profiles')
-      .select('role, full_name, is_approved')
+      .select('role, full_name')
       .eq('id', data.user.id)
       .single();
 
@@ -619,23 +619,20 @@ async function loginMember() {
       throw new Error('Akun ini bukan Anggota. Silakan gunakan Login Owner.');
     }
 
-    if (!profile.is_approved) {
-      await db.auth.signOut();
-      throw new Error('Akun belum disetujui Owner.');
-    }
-
     document.getElementById('memberLogin').style.display = 'none';
     document.getElementById('memberDashboard').style.display = 'block';
 
     document.getElementById('memberWelcome').textContent =
       'Selamat datang, ' + (profile.full_name || 'Anggota') + '!';
 
+    message.textContent = '';
+
     await loadMemberMaterials();
 
   } catch (error) {
     message.textContent = 'Gagal login: ' + error.message;
   }
-}
+           }
 
 async function logoutOwner() {
   await db.auth.signOut();
