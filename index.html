@@ -294,27 +294,86 @@ const db = window.supabase.createClient(
 );
 </script>
   
-<!-- LOGIN OWNER -->
-<button onclick="document.getElementById('memberRegister').style.display='none';document.getElementById('memberLogin').style.display='flex'" style="width:100%;padding:10px;margin-top:8px">Kembali</button>
+<!-- PILIH LOGIN -->
+<button onclick="document.getElementById('loginChoice').style.display='flex'"
+style="position:fixed;bottom:20px;right:20px;background:#D98B92;color:white;border:0;padding:14px 20px;border-radius:12px;font-weight:bold;z-index:99">
+Login
+</button>
 
+<div id="loginChoice" style="display:none;position:fixed;inset:0;background:#0009;z-index:100;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;padding:28px;border-radius:18px;width:100%;max-width:380px;text-align:center">
+    <h2>Login Ambalan Digital</h2>
+    <p style="color:#777;margin:10px 0 20px">Pilih jenis akun untuk masuk.</p>
+
+    <button onclick="document.getElementById('loginChoice').style.display='none';document.getElementById('ownerLogin').style.display='flex'"
+    style="width:100%;padding:13px;background:#D98B92;color:white;border:0;border-radius:9px;font-weight:bold;margin-bottom:10px">
+    Login Owner
+    </button>
+
+    <button onclick="document.getElementById('loginChoice').style.display='none';document.getElementById('memberLogin').style.display='flex'"
+    style="width:100%;padding:13px;background:#F7E5E6;color:#9D5961;border:0;border-radius:9px;font-weight:bold">
+    Login Anggota
+    </button>
+
+    <button onclick="document.getElementById('loginChoice').style.display='none'"
+    style="margin-top:15px;border:0;background:none;color:#777">
+    Tutup
+    </button>
+  </div>
+</div>
+
+<!-- LOGIN OWNER -->
 <div id="ownerLogin" style="display:none;position:fixed;inset:0;background:#0009;z-index:100;align-items:center;justify-content:center;padding:20px">
   <div style="background:white;padding:28px;border-radius:18px;width:100%;max-width:380px">
     <h2 style="margin-bottom:8px">Login Owner</h2>
     <p style="color:#777;margin-bottom:20px">Masuk ke Ambalan Digital</p>
+
     <input id="ownerEmail" type="email" placeholder="Email Owner"
     style="width:100%;padding:13px;margin-bottom:12px;border:1px solid #ddd;border-radius:9px">
+
     <input id="ownerPassword" type="password" placeholder="Password"
     style="width:100%;padding:13px;margin-bottom:15px;border:1px solid #ddd;border-radius:9px">
+
     <button onclick="loginOwner()" style="width:100%;padding:13px;background:#D98B92;color:white;border:0;border-radius:9px;font-weight:bold">
       Masuk
     </button>
+
     <p id="loginMessage" style="margin-top:12px;font-size:13px"></p>
+
+    <button onclick="document.getElementById('ownerLogin').style.display='none';document.getElementById('loginChoice').style.display='flex'"
+    style="width:100%;padding:12px;margin-top:10px;background:#F7E5E6;color:#9D5961;border:0;border-radius:9px;font-weight:bold">
+    Kembali
+    </button>
+  </div>
+</div>
+
+<!-- LOGIN ANGGOTA -->
+<div id="memberLogin" style="display:none;position:fixed;inset:0;background:#0009;z-index:100;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;padding:28px;border-radius:18px;width:100%;max-width:380px">
+    <h2 style="margin-bottom:8px">Login Anggota</h2>
+    <p style="color:#777;margin-bottom:20px">Masuk ke akun anggota Ambalan.</p>
+
+    <input id="memberEmail" type="email" placeholder="Email Anggota"
+    style="width:100%;padding:13px;margin-bottom:12px;border:1px solid #ddd;border-radius:9px">
+
+    <input id="memberPassword" type="password" placeholder="Password"
+    style="width:100%;padding:13px;margin-bottom:15px;border:1px solid #ddd;border-radius:9px">
+
+    <button onclick="loginMember()" style="width:100%;padding:13px;background:#D98B92;color:white;border:0;border-radius:9px;font-weight:bold">
+      Masuk
+    </button>
+
+    <p id="memberLoginMessage" style="margin-top:12px;font-size:13px"></p>
+
     <button onclick="openMemberRegister()"
-style="width:100%;padding:12px;margin-top:10px;background:#F7E5E6;color:#9D5961;border:0;border-radius:9px;font-weight:bold">
-  Daftar Akun Anggota
-</button>
-    <button onclick="document.getElementById('ownerLogin').style.display='none'"
-    style="margin-top:12px;border:0;background:none;color:#777">Tutup</button>
+    style="width:100%;padding:12px;margin-top:10px;background:#F7E5E6;color:#9D5961;border:0;border-radius:9px;font-weight:bold">
+    Daftar Akun Anggota
+    </button>
+
+    <button onclick="document.getElementById('memberLogin').style.display='none';document.getElementById('loginChoice').style.display='flex'"
+    style="width:100%;padding:10px;margin-top:12px;border:0;background:none;color:#777">
+    Kembali
+    </button>
   </div>
 </div>
 <!-- FORM PENDAFTARAN ANGGOTA -->
