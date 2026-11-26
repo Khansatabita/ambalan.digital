@@ -557,7 +557,6 @@ async function loginOwner() {
       'Selamat datang, ' + (profile.full_name || 'Owner') + '!';
 
     await loadAttendanceMembers();
-    await loadPendingMembers();
 
   } catch (error) {
     message.textContent = 'Gagal login: ' + error.message;
