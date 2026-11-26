@@ -1261,7 +1261,7 @@ async function registerMember() {
 
     const { data: profile, error: profileError } = await db
       .from('profiles')
-      .select('role, full_name, is_approved')
+      .select('role, full_name')
       .eq('id', session.user.id)
       .single();
 
@@ -1271,18 +1271,22 @@ async function registerMember() {
 
     if (profile.role === 'owner') {
       document.getElementById('ownerDashboard').style.display = 'block';
+
       document.getElementById('ownerWelcome').textContent =
         'Selamat datang, ' + (profile.full_name || 'Owner') + '!';
 
       await loadAttendanceMembers();
-      await loadPendingMembers();
+      await loadMembers();
       return;
     }
 
-    if (profile.role === 'anggota' && profile.is_approved) {
+    if (profile.role === 'anggota') {
       document.getElementById('memberDashboard').style.display = 'block';
+
       document.getElementById('memberWelcome').textContent =
         'Selamat datang, ' + (profile.full_name || 'Anggota') + '!';
+
+      await loadMemberMaterials();
       return;
     }
 
@@ -1295,7 +1299,3 @@ async function registerMember() {
 }
 
 restoreSession();
-</script>
-
-</body>
-</html>
